@@ -2,39 +2,40 @@
 # Conditional build:
 #
 %define		_state		stable
-%define		kdever		4.12.0
-%define		qtver		4.8.0
+%define		qtver		5.5.1
 %define		orgname		kdevelop
-%define		kdevplatform	1.7.3
 
 Summary:	KDE Integrated Development Environment
 Summary(de.UTF-8):	KDevelop ist eine grafische Entwicklungsumgebung für KDE
 Summary(pl.UTF-8):	Zintegrowane środowisko programisty dla KDE
 Summary(pt_BR.UTF-8):	Ambiente Integrado de Desenvolvimento para o KDE
 Summary(zh_CN.UTF-8):	KDE C/C++集成开发环境
-Name:		kde4-kdevelop
-Version:	4.7.3
-Release:	2
+Name:		ka5-kdevelop
+Version:	5.0.1
+Release:	0.1
 License:	GPL
 Group:		X11/Development/Tools
-Source0:	http://download.kde.org/%{_state}/kdevelop/%{version}/src/%{orgname}-%{version}.tar.bz2
-# Source0-md5:	ddeb41ffa4ea817957902638e7048b46
+Source0:	http://download.kde.org/%{_state}/kdevelop/%{version}/src/%{orgname}-%{version}.tar.xz
+# Source0-md5:	f7028cb03302ed5e67331319d656003c
 URL:		http://www.kdevelop.org/
-BuildRequires:	QtHelp-devel >= %{qtver}
-BuildRequires:	QtNetwork-devel >= %{qtver}
-BuildRequires:	automoc4
 BuildRequires:	cmake >= 2.8.9
 BuildRequires:	docbook-style-xsl
 BuildRequires:	gettext-tools
-BuildRequires:	kde4-kdebase-workspace-devel >= 4.10.0
-BuildRequires:	kde4-kdelibs-devel >= %{kdever}
-BuildRequires:	kde4-okteta-devel >= %{kdever}
-BuildRequires:	kde4-kdevplatform-devel >= %{kdevplatform}
+BuildRequires:	ka5-okteta-devel
+
+BuildRequires:	ka5-kdevplatform-devel >= %{version}
+BuildRequires:	kf5-kcrash-devel
+BuildRequires:	kf5-kdoctools-devel
+BuildRequires:	kf5-plasma-framework-devel
+BuildRequires:	kf5-krunner-devel
+BuildRequires:	clang-devel
+BuildRequires:	Qt5Help-devel
+BuildRequires:	qt5-assistant
+BuildRequires:	docbook-dtd45-xml
+
 BuildRequires:	libstdc++-devel >= 3.3
 BuildRequires:	pkgconfig
-BuildRequires:	qt4-build >= %{qtver}
-BuildRequires:	qt4-qmake >= %{qtver}
-BuildRequires:	rpm-pythonprov
+#BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.600
 BuildRequires:	zlib-devel >= 1.2.0
 BuildConflicts:	star
@@ -42,12 +43,12 @@ Requires:	libstdc++-gdb
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	shared-mime-info
 #Provides svn ioslave and perl doc ioslave
-Suggests:	kde4-kdesdk-kioslaves >= %{kdever}
+#Suggests:	kde4-kdesdk-kioslaves >= %{kdever}
 #Provides additional project templates
-Suggests:	kde4-kapptemplate >= %{kdever}
+#Suggests:	kde4-kapptemplate >= %{kdever}
 #Provides ui viewer
-Suggests:	kde4-kde-dev-utils >= %{kdever}
-Suggests:	kde4-kompare >= %{kdever}
+#Suggests:	kde4-kde-dev-utils >= %{kdever}
+#Suggests:	kde4-kompare >= %{kdever}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -127,6 +128,7 @@ pisaniu własnych programów wykorzystujących kdevelop.
 install -d build
 cd build
 %cmake \
+	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
 	../
 %{__make}
 
@@ -137,8 +139,6 @@ install -d $RPM_BUILD_ROOT%{_desktopdir}
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir}
-
-install app/kdevelop.desktop $RPM_BUILD_ROOT%{_desktopdir}
 
 %find_lang %{orgname} --all-name --with-kde
 
@@ -159,94 +159,33 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdevelop
 %attr(755,root,root) %{_bindir}/kdevelop!
-%attr(755,root,root) %{_libdir}/kde4/kcm_kdev_makebuilder.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_kdev_cmakebuilder.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_kdevcmake_settings.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_kdev_ninjabuilder.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_kdevcustombuildsystem.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_kdevcustomdefinesandincludes.so
-%attr(755,root,root) %{_libdir}/kde4/kdevastyle.so
-%attr(755,root,root) %{_libdir}/kde4/kdevcmakebuilder.so
-%attr(755,root,root) %{_libdir}/kde4/kdevcmakedocumentation.so
-%attr(755,root,root) %{_libdir}/kde4/kdevcmakemanager.so
-%attr(755,root,root) %{_libdir}/kde4/kdevcpplanguagesupport.so
-%attr(755,root,root) %{_libdir}/kde4/kdevcustombuildsystem.so
-%attr(755,root,root) %{_libdir}/kde4/kdevcustommakemanager.so
-%attr(755,root,root) %{_libdir}/kde4/kdevcustomscript.so
-%attr(755,root,root) %{_libdir}/kde4/kdevdefinesandincludesmanager.so
-%attr(755,root,root) %{_libdir}/kde4/kdevexecuteplasmoid.so
-%attr(755,root,root) %{_libdir}/kde4/kdevgdb.so
-%attr(755,root,root) %{_libdir}/kde4/kdevghprovider.so
-%attr(755,root,root) %{_libdir}/kde4/kdevokteta.so
-%attr(755,root,root) %{_libdir}/kde4/kdevmakebuilder.so
-%attr(755,root,root) %{_libdir}/kde4/kdevmanpage.so
-%attr(755,root,root) %{_libdir}/kde4/kdevninja.so
-%attr(755,root,root) %{_libdir}/kde4/kdevqthelp.so
-%attr(755,root,root) %{_libdir}/kde4/kdevqthelp_config.so
-%attr(755,root,root) %{_libdir}/kde4/kdevkdeprovider.so
-%attr(755,root,root) %{_libdir}/kde4/krunner_kdevelopsessions.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_kdevelopsessions.so
-%attr(755,root,root) %{_libdir}/libkdev4cmakecommon.so
-%attr(755,root,root) %{_libdir}/libkdev4cppduchain.so
-%attr(755,root,root) %{_libdir}/libkdev4cppparser.so
-%attr(755,root,root) %{_libdir}/libkdev4cpprpp.so
-%attr(755,root,root) %{_libdir}/libkdevcompilerprovider.so
-%{_datadir}/apps/kdevappwizard
-%{_datadir}/apps/kdevcodegen/templates/*
-%{_datadir}/apps/kdevcustommakemanager
-%{_datadir}/apps/kdevelop
-%{_datadir}/apps/kdevfiletemplates/templates/*
-%dir %{_datadir}/apps/kdevgdb
-%{_datadir}/apps/kdevgdb/kdevgdbui.rc
-%dir %{_datadir}/apps/kdevgdb/printers
-%{_datadir}/apps/kdevgdb/printers/gdbinit
-%{_datadir}/apps/kdevgdb/printers/helper.py
-%{_datadir}/apps/kdevgdb/printers/qt4.py
-%{_datadir}/apps/kdevgdb/printers/kde4.py
-%dir %{_datadir}/apps/kdevmanpage
-%{_datadir}/apps/kdevmanpage/manpagedocumentation.css
-%{_datadir}/apps/kdevokteta
-%{_datadir}/apps/plasma/plasmoids/kdevelopsessions
-%{_datadir}/apps/plasma/services/org.kde.plasma.dataengine.kdevelopsessions.operations
-%{_datadir}/config/kdeveloprc
-%{_datadir}/config/kdevelop-qthelp.knsrc
-%dir %{_datadir}/apps/kdevcppsupport
-%{_datadir}/apps/kdevcppsupport/kdevcppsupport.rc
-%{_datadir}/kde4/services/kcm_kdev_cmakebuilder.desktop
-%{_datadir}/kde4/services/kcm_kdev_makebuilder.desktop
-%{_datadir}/kde4/services/kcm_kdevcmake_settings.desktop
-%{_datadir}/kde4/services/kcm_kdev_ninjabuilder.desktop
-%{_datadir}/kde4/services/kcm_kdevcustombuildsystem.desktop
-%{_datadir}/kde4/services/kcm_kdevcustomdefinesandincludes.desktop
-%{_datadir}/kde4/services/kdevastyle.desktop
-%{_datadir}/kde4/services/kdevcmakebuilder.desktop
-%{_datadir}/kde4/services/kdevcmakedocumentation.desktop
-%{_datadir}/kde4/services/kdevcmakemanager.desktop
-%{_datadir}/kde4/services/kdevcustombuildsystem.desktop
-%{_datadir}/kde4/services/kdevcustomscript.desktop
-%{_datadir}/kde4/services/kdevcppsupport.desktop
-%{_datadir}/kde4/services/kdevcustommakemanager.desktop
-%{_datadir}/kde4/services/kdevdefinesandincludesmanager.desktop
-%{_datadir}/kde4/services/kdevexecuteplasmoid.desktop
-%{_datadir}/kde4/services/kdevgdb.desktop
-%{_datadir}/kde4/services/kdevghprovider.desktop
-%{_datadir}/kde4/services/kdevmakebuilder.desktop
-%{_datadir}/kde4/services/kdevmanpage.desktop
-%{_datadir}/kde4/services/kdevninja.desktop
-%{_datadir}/kde4/services/kdevokteta.desktop
-%{_datadir}/kde4/services/kdevqthelp.desktop
-%{_datadir}/kde4/services/kdevqthelp_config.desktop
-%{_datadir}/kde4/services/kdevelopsessions.desktop
-%{_datadir}/kde4/services/kdevkdeprovider.desktop
-%{_datadir}/kde4/services/plasma-applet-kdevelopsessions.desktop
-%{_datadir}/kde4/services/plasma-dataengine-kdevelopsessions.desktop
-%{_datadir}/mime/packages/kdevelop.xml
-%{_desktopdir}/kdevelop.desktop
-%{_desktopdir}/kde4/kdevelop.desktop
-%{_desktopdir}/kde4/kdevelop_ps.desktop
+%attr(755,root,root) %{_bindir}/kdev_includepathsconverter
+%attr(755,root,root) %{_libdir}/qt5/plugins/kdevplatform/*/kdev*.so
+%attr(755,root,root) %{_libdir}/qt5/plugins/krunner_kdevelopsessions.so
+%attr(755,root,root) %{_libdir}/qt5/plugins/plasma/dataengine/plasma_engine_kdevelopsessions.so
+%attr(755,root,root) %{_libdir}/libKDevClangPrivate.so.*
+%attr(755,root,root) %{_libdir}/libkdevcmakecommon.so
+%{_datadir}/appdata/*
+%{_datadir}/doc/HTML/en/kdevelop
+%{_datadir}/kdevappwizard
+%{_datadir}/kdevclangsupport
+%{_datadir}/kdevcodegen/templates/*
+%{_datadir}/kdevelop
+%{_datadir}/kdevfiletemplates
+%{_datadir}/kdevgdb
+%{_datadir}/kdevmanpage
+%{_datadir}/kdevqmakebuilder
+%{_datadir}/kdevqmljssupport
+%{_datadir}/knotifications5/*
+%{_datadir}/mime/packages/*
+%{_datadir}/kservices5/*
+%{_datadir}/plasma/plasmoids/kdevelopsessions
+%{_datadir}/plasma/services/org.kde.plasma.dataengine.kdevelopsessions.operations
+%{_desktopdir}/org.kde.kdevelop.desktop
+%{_desktopdir}/org.kde.kdevelop_ps.desktop
 %{_iconsdir}/*/*x*/*/*.png
-%{_includedir}/kdevelop
 
 %files devel
 %defattr(644,root,root,755)
-%{_datadir}/apps/cmake/modules/FindKDevelop.cmake
+%{_libdir}/cmake/KDevelop
+%{_includedir}/kdevelop
