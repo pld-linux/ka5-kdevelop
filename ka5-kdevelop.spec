@@ -11,44 +11,37 @@ Summary(pl.UTF-8):	Zintegrowane środowisko programisty dla KDE
 Summary(pt_BR.UTF-8):	Ambiente Integrado de Desenvolvimento para o KDE
 Summary(zh_CN.UTF-8):	KDE C/C++集成开发环境
 Name:		ka5-kdevelop
-Version:	5.0.1
-Release:	0.1
+Version:	5.3.0
+Release:	0.2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	http://download.kde.org/%{_state}/kdevelop/%{version}/src/%{orgname}-%{version}.tar.xz
-# Source0-md5:	f7028cb03302ed5e67331319d656003c
+# Source0-md5:	ed50e7aaa2511c15c2b0bfb54f2b6a96
 URL:		http://www.kdevelop.org/
 BuildRequires:	cmake >= 2.8.9
 BuildRequires:	docbook-style-xsl
 BuildRequires:	gettext-tools
 BuildRequires:	ka5-okteta-devel
 
-BuildRequires:	ka5-kdevplatform-devel >= %{version}
 BuildRequires:	kf5-kcrash-devel
 BuildRequires:	kf5-kdoctools-devel
 BuildRequires:	kf5-plasma-framework-devel
 BuildRequires:	kf5-krunner-devel
+BuildRequires:	kp5-libksysguard-devel
 BuildRequires:	clang-devel
 BuildRequires:	Qt5Help-devel
+BuildRequires:	Qt5WebEngine-devel
 BuildRequires:	qt5-assistant
 BuildRequires:	docbook-dtd45-xml
 
 BuildRequires:	libstdc++-devel >= 3.3
 BuildRequires:	pkgconfig
-#BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.600
 BuildRequires:	zlib-devel >= 1.2.0
 BuildConflicts:	star
 Requires:	libstdc++-gdb
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	shared-mime-info
-#Provides svn ioslave and perl doc ioslave
-#Suggests:	kde4-kdesdk-kioslaves >= %{kdever}
-#Provides additional project templates
-#Suggests:	kde4-kapptemplate >= %{kdever}
-#Provides ui viewer
-#Suggests:	kde4-kde-dev-utils >= %{kdever}
-#Suggests:	kde4-kompare >= %{kdever}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -162,30 +155,95 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kdev_includepathsconverter
 %attr(755,root,root) %{_libdir}/qt5/plugins/kdevplatform/*/kdev*.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/krunner_kdevelopsessions.so
+%dir %{_libdir}/qt5/plugins/plasma/dataengine
 %attr(755,root,root) %{_libdir}/qt5/plugins/plasma/dataengine/plasma_engine_kdevelopsessions.so
 %attr(755,root,root) %{_libdir}/libKDevClangPrivate.so.*
 %attr(755,root,root) %{_libdir}/libkdevcmakecommon.so
-%{_datadir}/appdata/*
 %{_datadir}/doc/HTML/en/kdevelop
 %{_datadir}/kdevappwizard
 %{_datadir}/kdevclangsupport
-%{_datadir}/kdevcodegen/templates/*
 %{_datadir}/kdevelop
 %{_datadir}/kdevfiletemplates
 %{_datadir}/kdevgdb
+%{_datadir}/kdevlldb
 %{_datadir}/kdevmanpage
-%{_datadir}/kdevqmakebuilder
 %{_datadir}/kdevqmljssupport
 %{_datadir}/knotifications5/*
+%{_datadir}/metainfo/*
 %{_datadir}/mime/packages/*
 %{_datadir}/kservices5/*
 %{_datadir}/plasma/plasmoids/kdevelopsessions
 %{_datadir}/plasma/services/org.kde.plasma.dataengine.kdevelopsessions.operations
 %{_desktopdir}/org.kde.kdevelop.desktop
-%{_desktopdir}/org.kde.kdevelop_ps.desktop
+%{_desktopdir}/org.kde.kdevelop_*.desktop
 %{_iconsdir}/*/*x*/*/*.png
+%{_sysconfdir}/xdg/*.categories
+
+#kdevplatform
+%attr(755,root,root) %{_bindir}/kdev_dbus_socket_transformer
+%attr(755,root,root) %{_bindir}/kdev_format_source
+%attr(755,root,root) %{_bindir}/kdevplatform_shell_environment.sh
+%attr(755,root,root) %{_libdir}/libKDevPlatformDebugger.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformDebugger.so.??
+%attr(755,root,root) %{_libdir}/libKDevPlatformDocumentation.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformDocumentation.so.??
+%attr(755,root,root) %{_libdir}/libKDevPlatformInterfaces.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformInterfaces.so.??
+%attr(755,root,root) %{_libdir}/libKDevPlatformLanguage.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformLanguage.so.??
+%attr(755,root,root) %{_libdir}/libKDevPlatformOutputView.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformOutputView.so.??
+%attr(755,root,root) %{_libdir}/libKDevPlatformProject.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformProject.so.??
+%attr(755,root,root) %{_libdir}/libKDevPlatformSerialization.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformSerialization.so.??
+%attr(755,root,root) %{_libdir}/libKDevPlatformShell.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformShell.so.??
+%attr(755,root,root) %{_libdir}/libKDevPlatformSublime.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformSublime.so.??
+%attr(755,root,root) %{_libdir}/libKDevPlatformTests.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformTests.so.??
+%attr(755,root,root) %{_libdir}/libKDevPlatformUtil.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformUtil.so.??
+%attr(755,root,root) %{_libdir}/libKDevPlatformVcs.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformVcs.so.??
+%dir %{_libdir}/qt5/plugins/grantlee
+%dir %{_libdir}/qt5/plugins/grantlee/*
+%attr(755,root,root) %{_libdir}/qt5/plugins/grantlee/*/kdev_filters.so
+%dir %{_libdir}/qt5/plugins/kdevplatform
+%dir %{_libdir}/qt5/plugins/kdevplatform/*
+%dir %{_libdir}/qt5/qml/org/kde/kdevplatform
+%{_libdir}/qt5/qml/org/kde/kdevplatform/qmldir
+%attr(755,root,root) %{_libdir}/qt5/qml/org/kde/kdevplatform/libkdevelopdashboarddeclarativeplugin.so
+%{_datadir}/kdevcodegen
+%{_datadir}/kdevcodeutils
+%{_datadir}/kservicetypes5/kdevelopplugin.desktop
+%{_iconsdir}/hicolor/*/actions/*.svg
+%{_iconsdir}/hicolor/*/apps/*.svg
+
 
 %files devel
 %defattr(644,root,root,755)
 %{_libdir}/cmake/KDevelop
 %{_includedir}/kdevelop
+
+#kdevplatform
+%{_includedir}/kdevplatform
+%{_libdir}/libKDevPlatformDebugger.so
+%{_libdir}/libKDevPlatformDocumentation.so
+%{_libdir}/libKDevPlatformInterfaces.so
+%{_libdir}/libKDevPlatformLanguage.so
+%{_libdir}/libKDevPlatformOutputView.so
+%{_libdir}/libKDevPlatformProject.so
+%{_libdir}/libKDevPlatformSerialization.so
+%{_libdir}/libKDevPlatformShell.so
+%{_libdir}/libKDevPlatformSublime.so
+%{_libdir}/libKDevPlatformTests.so
+%{_libdir}/libKDevPlatformUtil.so
+%{_libdir}/libKDevPlatformVcs.so
+%dir %{_libdir}/cmake/KDevPlatform
+%{_libdir}/cmake/KDevPlatform/KDevPlatformConfig.cmake
+%{_libdir}/cmake/KDevPlatform/KDevPlatformConfigVersion.cmake
+%{_libdir}/cmake/KDevPlatform/KDevPlatformMacros.cmake
+%{_libdir}/cmake/KDevPlatform/KDevPlatformTargets.cmake
+%{_libdir}/cmake/KDevPlatform/KDevPlatformTargets-pld.cmake
