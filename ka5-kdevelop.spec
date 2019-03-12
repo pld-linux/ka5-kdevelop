@@ -11,12 +11,12 @@ Summary(pl.UTF-8):	Zintegrowane środowisko programisty dla KDE
 Summary(pt_BR.UTF-8):	Ambiente Integrado de Desenvolvimento para o KDE
 Summary(zh_CN.UTF-8):	KDE C/C++集成开发环境
 Name:		ka5-kdevelop
-Version:	5.3.0
-Release:	0.2
+Version:	5.3.2
+Release:	0.1
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	http://download.kde.org/%{_state}/kdevelop/%{version}/src/%{orgname}-%{version}.tar.xz
-# Source0-md5:	ed50e7aaa2511c15c2b0bfb54f2b6a96
+# Source0-md5:	6e30713e19c20e987e1a943d47cd1d65
 URL:		http://www.kdevelop.org/
 BuildRequires:	cmake >= 2.8.9
 BuildRequires:	docbook-style-xsl
