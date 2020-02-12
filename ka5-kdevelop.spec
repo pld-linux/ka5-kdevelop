@@ -11,18 +11,18 @@ Summary(pl.UTF-8):	Zintegrowane środowisko programisty dla KDE
 Summary(pt_BR.UTF-8):	Ambiente Integrado de Desenvolvimento para o KDE
 Summary(zh_CN.UTF-8):	KDE C/C++集成开发环境
 Name:		ka5-kdevelop
-Version:	5.3.2
+Version:	5.5.0
 Release:	0.1
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	http://download.kde.org/%{_state}/kdevelop/%{version}/src/%{orgname}-%{version}.tar.xz
-# Source0-md5:	6e30713e19c20e987e1a943d47cd1d65
+# Source0-md5:	df4bf2edec960419b1b6d089b64b3df6
 URL:		http://www.kdevelop.org/
 BuildRequires:	cmake >= 2.8.9
 BuildRequires:	docbook-style-xsl
 BuildRequires:	gettext-tools
+BuildRequires:	ka5-libkomparediff2-devel
 BuildRequires:	ka5-okteta-devel
-
 BuildRequires:	kf5-kcrash-devel
 BuildRequires:	kf5-kdoctools-devel
 BuildRequires:	kf5-plasma-framework-devel
@@ -158,7 +158,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/qt5/plugins/plasma/dataengine
 %attr(755,root,root) %{_libdir}/qt5/plugins/plasma/dataengine/plasma_engine_kdevelopsessions.so
 %attr(755,root,root) %{_libdir}/libKDevClangPrivate.so.*
-%attr(755,root,root) %{_libdir}/libkdevcmakecommon.so
+%attr(755,root,root) %{_libdir}/libKDevCMakeCommon.so.*
+%attr(755,root,root) %{_libdir}/libKDevCompileAnalyzerCommon.so.*
 %{_datadir}/doc/HTML/en/kdevelop
 %{_datadir}/kdevappwizard
 %{_datadir}/kdevclangsupport
@@ -177,7 +178,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/org.kde.kdevelop.desktop
 %{_desktopdir}/org.kde.kdevelop_*.desktop
 %{_iconsdir}/*/*x*/*/*.png
-%{_sysconfdir}/xdg/*.categories
+%{_datadir}/qlogging-categories5/kdev*.categories
+# don't know yet, what package knsrcfiles dir should belong to
+#%{_datadir}/knsrcfiles/kdev*.knsrc
 
 #kdevplatform
 %attr(755,root,root) %{_bindir}/kdev_dbus_socket_transformer
