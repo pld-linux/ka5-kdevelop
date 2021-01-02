@@ -11,12 +11,12 @@ Summary(pl.UTF-8):	Zintegrowane środowisko programisty dla KDE
 Summary(pt_BR.UTF-8):	Ambiente Integrado de Desenvolvimento para o KDE
 Summary(zh_CN.UTF-8):	KDE C/C++集成开发环境
 Name:		ka5-kdevelop
-Version:	5.5.0
+Version:	5.6.1
 Release:	0.1
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	http://download.kde.org/%{_state}/kdevelop/%{version}/src/%{orgname}-%{version}.tar.xz
-# Source0-md5:	df4bf2edec960419b1b6d089b64b3df6
+# Source0-md5:	310daaa893fa556648576ffb5185af35
 URL:		http://www.kdevelop.org/
 BuildRequires:	cmake >= 2.8.9
 BuildRequires:	docbook-style-xsl
@@ -153,10 +153,16 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kdevelop
 %attr(755,root,root) %{_bindir}/kdevelop!
 %attr(755,root,root) %{_bindir}/kdev_includepathsconverter
-%attr(755,root,root) %{_libdir}/qt5/plugins/kdevplatform/*/kdev*.so
-%attr(755,root,root) %{_libdir}/qt5/plugins/krunner_kdevelopsessions.so
-%dir %{_libdir}/qt5/plugins/plasma/dataengine
-%attr(755,root,root) %{_libdir}/qt5/plugins/plasma/dataengine/plasma_engine_kdevelopsessions.so
+%attr(755,root,root) %{_libdir}/libKDevelopSessionsWatch.so
+%dir %{_libdir}/qt5/plugins/kf5/krunner
+%attr(755,root,root) %{_libdir}/qt5/plugins/kf5/krunner/krunner_kdevelopsessions.so
+%dir %{_libdir}/qt5/qml/org/kde/plasma/private/kdevelopsessions
+%attr(755,root,root) %{_libdir}/qt5/qml/org/kde/plasma/private/kdevelopsessions/libkdevelopsessionsplugin.so
+%dir %{_libdir}/qt5/qml/org/kde/plasma/private/kdevelopsessions/qmldir
+%dir %{_datadir}/kdevplatform
+%dir %{_datadir}/kdevplatform/shellutils
+%{_datadir}/kdevplatform/shellutils/.zshrc
+#%dir %{_libdir}/qt5/plugins/plasma/dataengine
 %attr(755,root,root) %{_libdir}/libKDevClangPrivate.so.*
 %attr(755,root,root) %{_libdir}/libKDevCMakeCommon.so.*
 %attr(755,root,root) %{_libdir}/libKDevCompileAnalyzerCommon.so.*
@@ -174,13 +180,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/mime/packages/*
 %{_datadir}/kservices5/*
 %{_datadir}/plasma/plasmoids/kdevelopsessions
-%{_datadir}/plasma/services/org.kde.plasma.dataengine.kdevelopsessions.operations
 %{_desktopdir}/org.kde.kdevelop.desktop
 %{_desktopdir}/org.kde.kdevelop_*.desktop
 %{_iconsdir}/*/*x*/*/*.png
 %{_datadir}/qlogging-categories5/kdev*.categories
-# don't know yet, what package knsrcfiles dir should belong to
-#%{_datadir}/knsrcfiles/kdev*.knsrc
+%{_datadir}/knsrcfiles/kdev*.knsrc
 
 #kdevplatform
 %attr(755,root,root) %{_bindir}/kdev_dbus_socket_transformer
@@ -213,9 +217,13 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/qt5/plugins/grantlee
 %dir %{_libdir}/qt5/plugins/grantlee/*
 %attr(755,root,root) %{_libdir}/qt5/plugins/grantlee/*/kdev_filters.so
+
 %dir %{_libdir}/qt5/plugins/kdevplatform
 %dir %{_libdir}/qt5/plugins/kdevplatform/*
+%attr(755,root,root) %{_libdir}/qt5/plugins/kdevplatform/*/kdev*.so
+
 %dir %{_libdir}/qt5/qml/org/kde/kdevplatform
+
 %{_libdir}/qt5/qml/org/kde/kdevplatform/qmldir
 %attr(755,root,root) %{_libdir}/qt5/qml/org/kde/kdevplatform/libkdevelopdashboarddeclarativeplugin.so
 %{_datadir}/kdevcodegen
