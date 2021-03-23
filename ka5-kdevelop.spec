@@ -11,12 +11,12 @@ Summary(pl.UTF-8):	Zintegrowane środowisko programisty dla KDE
 Summary(pt_BR.UTF-8):	Ambiente Integrado de Desenvolvimento para o KDE
 Summary(zh_CN.UTF-8):	KDE C/C++集成开发环境
 Name:		ka5-kdevelop
-Version:	5.6.1
-Release:	0.1
+Version:	5.6.2
+Release:	1
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	http://download.kde.org/%{_state}/kdevelop/%{version}/src/%{orgname}-%{version}.tar.xz
-# Source0-md5:	310daaa893fa556648576ffb5185af35
+# Source0-md5:	b95ad1161c873af3e9a6b58ad7e655f5
 URL:		http://www.kdevelop.org/
 BuildRequires:	cmake >= 2.8.9
 BuildRequires:	docbook-style-xsl
@@ -158,11 +158,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/krunner/krunner_kdevelopsessions.so
 %dir %{_libdir}/qt5/qml/org/kde/plasma/private/kdevelopsessions
 %attr(755,root,root) %{_libdir}/qt5/qml/org/kde/plasma/private/kdevelopsessions/libkdevelopsessionsplugin.so
-%dir %{_libdir}/qt5/qml/org/kde/plasma/private/kdevelopsessions/qmldir
+%{_libdir}/qt5/qml/org/kde/plasma/private/kdevelopsessions/qmldir
 %dir %{_datadir}/kdevplatform
 %dir %{_datadir}/kdevplatform/shellutils
 %{_datadir}/kdevplatform/shellutils/.zshrc
-#%dir %{_libdir}/qt5/plugins/plasma/dataengine
 %attr(755,root,root) %{_libdir}/libKDevClangPrivate.so.*
 %attr(755,root,root) %{_libdir}/libKDevCMakeCommon.so.*
 %attr(755,root,root) %{_libdir}/libKDevCompileAnalyzerCommon.so.*
@@ -191,38 +190,32 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kdev_format_source
 %attr(755,root,root) %{_bindir}/kdevplatform_shell_environment.sh
 %attr(755,root,root) %{_libdir}/libKDevPlatformDebugger.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformDebugger.so.??
+%ghost %{_libdir}/libKDevPlatformDebugger.so.??
 %attr(755,root,root) %{_libdir}/libKDevPlatformDocumentation.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformDocumentation.so.??
+%ghost %{_libdir}/libKDevPlatformDocumentation.so.??
 %attr(755,root,root) %{_libdir}/libKDevPlatformInterfaces.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformInterfaces.so.??
+%ghost %{_libdir}/libKDevPlatformInterfaces.so.??
 %attr(755,root,root) %{_libdir}/libKDevPlatformLanguage.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformLanguage.so.??
+%ghost %{_libdir}/libKDevPlatformLanguage.so.??
 %attr(755,root,root) %{_libdir}/libKDevPlatformOutputView.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformOutputView.so.??
+%ghost %{_libdir}/libKDevPlatformOutputView.so.??
 %attr(755,root,root) %{_libdir}/libKDevPlatformProject.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformProject.so.??
+%ghost %{_libdir}/libKDevPlatformProject.so.??
 %attr(755,root,root) %{_libdir}/libKDevPlatformSerialization.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformSerialization.so.??
+%ghost %{_libdir}/libKDevPlatformSerialization.so.??
 %attr(755,root,root) %{_libdir}/libKDevPlatformShell.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformShell.so.??
+%ghost %{_libdir}/libKDevPlatformShell.so.??
 %attr(755,root,root) %{_libdir}/libKDevPlatformSublime.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformSublime.so.??
+%ghost %{_libdir}/libKDevPlatformSublime.so.??
 %attr(755,root,root) %{_libdir}/libKDevPlatformTests.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformTests.so.??
+%ghost %{_libdir}/libKDevPlatformTests.so.??
 %attr(755,root,root) %{_libdir}/libKDevPlatformUtil.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformUtil.so.??
+%ghost %{_libdir}/libKDevPlatformUtil.so.??
 %attr(755,root,root) %{_libdir}/libKDevPlatformVcs.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libKDevPlatformVcs.so.??
-%dir %{_libdir}/qt5/plugins/grantlee
-%dir %{_libdir}/qt5/plugins/grantlee/*
+%ghost %{_libdir}/libKDevPlatformVcs.so.??
 %attr(755,root,root) %{_libdir}/qt5/plugins/grantlee/*/kdev_filters.so
 
-%dir %{_libdir}/qt5/plugins/kdevplatform
-%dir %{_libdir}/qt5/plugins/kdevplatform/*
 %attr(755,root,root) %{_libdir}/qt5/plugins/kdevplatform/*/kdev*.so
-
-%dir %{_libdir}/qt5/qml/org/kde/kdevplatform
 
 %{_libdir}/qt5/qml/org/kde/kdevplatform/qmldir
 %attr(755,root,root) %{_libdir}/qt5/qml/org/kde/kdevplatform/libkdevelopdashboarddeclarativeplugin.so
@@ -252,9 +245,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libKDevPlatformTests.so
 %{_libdir}/libKDevPlatformUtil.so
 %{_libdir}/libKDevPlatformVcs.so
-%dir %{_libdir}/cmake/KDevPlatform
-%{_libdir}/cmake/KDevPlatform/KDevPlatformConfig.cmake
-%{_libdir}/cmake/KDevPlatform/KDevPlatformConfigVersion.cmake
-%{_libdir}/cmake/KDevPlatform/KDevPlatformMacros.cmake
-%{_libdir}/cmake/KDevPlatform/KDevPlatformTargets.cmake
-%{_libdir}/cmake/KDevPlatform/KDevPlatformTargets-pld.cmake
+%{_libdir}/cmake/KDevPlatform
