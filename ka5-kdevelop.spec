@@ -1,9 +1,10 @@
 #
 # Conditional build:
 #
-%define		_state		stable
-%define		qtver		5.5.1
-%define		orgname		kdevelop
+%define		kdeappsver	21.12.0
+%define		kframever	5.78.0
+%define		qtver		5.15.0
+%define		kaname		kdevelop
 
 Summary:	KDE Integrated Development Environment
 Summary(de.UTF-8):	KDevelop ist eine grafische Entwicklungsumgebung für KDE
@@ -11,27 +12,29 @@ Summary(pl.UTF-8):	Zintegrowane środowisko programisty dla KDE
 Summary(pt_BR.UTF-8):	Ambiente Integrado de Desenvolvimento para o KDE
 Summary(zh_CN.UTF-8):	KDE C/C++集成开发环境
 Name:		ka5-kdevelop
-Version:	5.6.2
+Version:	21.12.0
 Release:	1
 License:	GPL
 Group:		X11/Development/Tools
-Source0:	http://download.kde.org/%{_state}/kdevelop/%{version}/src/%{orgname}-%{version}.tar.xz
-# Source0-md5:	b95ad1161c873af3e9a6b58ad7e655f5
+Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
+# Source0-md5:	ca3e056cda9cdbe96d612ffd5b925798
 URL:		http://www.kdevelop.org/
+BuildRequires:	astyle-devel >= 3.1
 BuildRequires:	cmake >= 2.8.9
 BuildRequires:	docbook-style-xsl
 BuildRequires:	gettext-tools
 BuildRequires:	ka5-libkomparediff2-devel
 BuildRequires:	ka5-okteta-devel
-BuildRequires:	kf5-kcrash-devel
-BuildRequires:	kf5-kdoctools-devel
-BuildRequires:	kf5-plasma-framework-devel
-BuildRequires:	kf5-krunner-devel
+BuildRequires:	kf5-kcrash-devel >= %{kframever}
+BuildRequires:	kf5-kdoctools-devel >= %{kframever}
+BuildRequires:	kf5-plasma-framework-devel >= %{kframever}
+BuildRequires:	kf5-krunner-devel >= %{kframever}
+BuildRequires:	kf5-syntax-highlighting-devel >= %{kframever}
 BuildRequires:	kp5-libksysguard-devel
 BuildRequires:	clang-devel
-BuildRequires:	Qt5Help-devel
-BuildRequires:	Qt5WebEngine-devel
-BuildRequires:	qt5-assistant
+BuildRequires:	Qt5Help-devel >= %{qtver}
+BuildRequires:	Qt5WebEngine-devel >= %{qtver}
+BuildRequires:	qt5-assistant >= %{qtver}
 BuildRequires:	docbook-dtd45-xml
 
 BuildRequires:	libstdc++-devel >= 3.3
@@ -43,6 +46,8 @@ Requires:	libstdc++-gdb
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	shared-mime-info
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_noautoreqfiles .*\\.zshrc
 
 %description
 The KDevelop Integrated Development Environment provides many features
@@ -114,8 +119,22 @@ kdevelop.
 Pakiet ten zawiera pliki nagłówkowe i dokumentację potrzebną przy
 pisaniu własnych programów wykorzystujących kdevelop.
 
+%package -n bash-completion-kdevelop
+Summary:	Bash completion for KDevelop commands
+Summary(pl.UTF-8):	Bashowe uzupełnianie parametrów dla poleceń KDevelop
+Group:		Applications/Shells
+Requires:	%{name} = %{version}-%{release}
+Requires:	bash-completion >= 2.0
+%{?noarchpackage}
+
+%description -n bash-completion-kdevelop
+Bash completion for KDevelop commands.
+
+%description -n bash-completion-kdevelop -l pl.UTF-8
+Bashowe uzupełnianie parametrów dla poleceń KDevelop.
+
 %prep
-%setup -q -n %{orgname}-%{version}
+%setup -q -n %{kaname}-%{version}
 
 %build
 install -d build
@@ -133,7 +152,7 @@ install -d $RPM_BUILD_ROOT%{_desktopdir}
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir}
 
-%find_lang %{orgname} --all-name --with-kde
+%find_lang %{kaname} --all-name --with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -148,11 +167,14 @@ rm -rf $RPM_BUILD_ROOT
 %update_mime_database
 %update_desktop_database_postun
 
-%files -f %{orgname}.lang
+%files -f %{kaname}.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdevelop
 %attr(755,root,root) %{_bindir}/kdevelop!
 %attr(755,root,root) %{_bindir}/kdev_includepathsconverter
+%attr(755,root,root) %{_libdir}/libKDevClangPrivate.so.*
+%attr(755,root,root) %{_libdir}/libKDevCMakeCommon.so.*
+%attr(755,root,root) %{_libdir}/libKDevCompileAnalyzerCommon.so.*
 %attr(755,root,root) %{_libdir}/libKDevelopSessionsWatch.so
 %dir %{_libdir}/qt5/plugins/kf5/krunner
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/krunner/krunner_kdevelopsessions.so
@@ -162,10 +184,15 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/kdevplatform
 %dir %{_datadir}/kdevplatform/shellutils
 %{_datadir}/kdevplatform/shellutils/.zshrc
-%attr(755,root,root) %{_libdir}/libKDevClangPrivate.so.*
-%attr(755,root,root) %{_libdir}/libKDevCMakeCommon.so.*
-%attr(755,root,root) %{_libdir}/libKDevCompileAnalyzerCommon.so.*
-%{_datadir}/doc/HTML/en/kdevelop
+%lang(de) %{_docdir}/HTML/ca/kdevelop
+%lang(en) %{_docdir}/HTML/en/kdevelop
+%lang(es) %{_docdir}/HTML/es/kdevelop
+%lang(it) %{_docdir}/HTML/it/kdevelop
+%lang(nl) %{_docdir}/HTML/nl/kdevelop
+%lang(pt) %{_docdir}/HTML/pt/kdevelop
+%lang(pt_BR) %{_docdir}/HTML/pt_BR/kdevelop
+%lang(sv) %{_docdir}/HTML/sv/kdevelop
+%lang(uk) %{_docdir}/HTML/uk/kdevelop
 %{_datadir}/kdevappwizard
 %{_datadir}/kdevclangsupport
 %{_datadir}/kdevelop
@@ -175,6 +202,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kdevmanpage
 %{_datadir}/kdevqmljssupport
 %{_datadir}/knotifications5/*
+%{_datadir}/knsrcfiles/kdev*.knsrc
 %{_datadir}/metainfo/*
 %{_datadir}/mime/packages/*
 %{_datadir}/kservices5/*
@@ -183,7 +211,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/org.kde.kdevelop_*.desktop
 %{_iconsdir}/*/*x*/*/*.png
 %{_datadir}/qlogging-categories5/kdev*.categories
-%{_datadir}/knsrcfiles/kdev*.knsrc
 
 #kdevplatform
 %attr(755,root,root) %{_bindir}/kdev_dbus_socket_transformer
@@ -245,4 +272,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libKDevPlatformTests.so
 %{_libdir}/libKDevPlatformUtil.so
 %{_libdir}/libKDevPlatformVcs.so
-%{_libdir}/cmake/KDevPlatform
+%dir %{_libdir}/cmake/KDevPlatform
+%{_libdir}/cmake/KDevPlatform/KDevPlatformConfig.cmake
+%{_libdir}/cmake/KDevPlatform/KDevPlatformConfigVersion.cmake
+%{_libdir}/cmake/KDevPlatform/KDevPlatformMacros.cmake
+%{_libdir}/cmake/KDevPlatform/KDevPlatformTargets.cmake
+%{_libdir}/cmake/KDevPlatform/KDevPlatformTargets-pld.cmake
+
+%files -n bash-completion-kdevelop
+%defattr(644,root,root,755)
+%{bash_compdir}/kdevelop
