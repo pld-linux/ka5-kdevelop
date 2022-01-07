@@ -1,7 +1,7 @@
 #
 # Conditional build:
 #
-%define		kdeappsver	21.12.0
+%define		kdeappsver	21.12.1
 %define		kframever	5.78.0
 %define		qtver		5.15.0
 %define		kaname		kdevelop
@@ -12,32 +12,33 @@ Summary(pl.UTF-8):	Zintegrowane środowisko programisty dla KDE
 Summary(pt_BR.UTF-8):	Ambiente Integrado de Desenvolvimento para o KDE
 Summary(zh_CN.UTF-8):	KDE C/C++集成开发环境
 Name:		ka5-kdevelop
-Version:	21.12.0
+Version:	21.12.1
 Release:	1
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
-# Source0-md5:	ca3e056cda9cdbe96d612ffd5b925798
+# Source0-md5:	0d0529a5dc435fea7aad3e8afe0e6236
 URL:		http://www.kdevelop.org/
+BuildRequires:	Qt5Help-devel >= %{qtver}
+BuildRequires:	Qt5WebEngine-devel >= %{qtver}
 BuildRequires:	astyle-devel >= 3.1
+BuildRequires:	clang-devel
 BuildRequires:	cmake >= 2.8.9
+BuildRequires:	docbook-dtd45-xml
 BuildRequires:	docbook-style-xsl
 BuildRequires:	gettext-tools
 BuildRequires:	ka5-libkomparediff2-devel
 BuildRequires:	ka5-okteta-devel
 BuildRequires:	kf5-kcrash-devel >= %{kframever}
 BuildRequires:	kf5-kdoctools-devel >= %{kframever}
-BuildRequires:	kf5-plasma-framework-devel >= %{kframever}
 BuildRequires:	kf5-krunner-devel >= %{kframever}
+BuildRequires:	kf5-plasma-framework-devel >= %{kframever}
 BuildRequires:	kf5-syntax-highlighting-devel >= %{kframever}
 BuildRequires:	kp5-libksysguard-devel
-BuildRequires:	clang-devel
-BuildRequires:	Qt5Help-devel >= %{qtver}
-BuildRequires:	Qt5WebEngine-devel >= %{qtver}
 BuildRequires:	qt5-assistant >= %{qtver}
-BuildRequires:	docbook-dtd45-xml
 
 BuildRequires:	libstdc++-devel >= 3.3
+BuildRequires:	ninja
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.600
 BuildRequires:	zlib-devel >= 1.2.0
@@ -140,17 +141,16 @@ Bashowe uzupełnianie parametrów dla poleceń KDevelop.
 install -d build
 cd build
 %cmake \
+	-G Ninja \
+	-DHTML_INSTALL_DIR=%{_kdedocdir} \
 	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-	../
-%{__make}
+	-DFORCE_BASH_COMPLETION_INSTALLATION=ON \
+	..
+%ninja_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-install -d $RPM_BUILD_ROOT%{_desktopdir}
-%{__make} -C build install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	kde_htmldir=%{_kdedocdir}
+%ninja_install -C build
 
 %find_lang %{kaname} --all-name --with-kde
 
@@ -184,15 +184,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/kdevplatform
 %dir %{_datadir}/kdevplatform/shellutils
 %{_datadir}/kdevplatform/shellutils/.zshrc
-%lang(de) %{_docdir}/HTML/ca/kdevelop
-%lang(en) %{_docdir}/HTML/en/kdevelop
-%lang(es) %{_docdir}/HTML/es/kdevelop
-%lang(it) %{_docdir}/HTML/it/kdevelop
-%lang(nl) %{_docdir}/HTML/nl/kdevelop
-%lang(pt) %{_docdir}/HTML/pt/kdevelop
-%lang(pt_BR) %{_docdir}/HTML/pt_BR/kdevelop
-%lang(sv) %{_docdir}/HTML/sv/kdevelop
-%lang(uk) %{_docdir}/HTML/uk/kdevelop
 %{_datadir}/kdevappwizard
 %{_datadir}/kdevclangsupport
 %{_datadir}/kdevelop
