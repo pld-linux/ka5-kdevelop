@@ -2,7 +2,7 @@
 # Conditional build:
 %bcond_with	tests		# build with tests
 
-%define		kdeappsver	21.12.3
+%define		kdeappsver	22.04.0
 %define		kframever	5.78.0
 %define		qtver		5.15.0
 %define		kaname		kdevelop
@@ -13,12 +13,12 @@ Summary(pl.UTF-8):	Zintegrowane środowisko programisty dla KDE
 Summary(pt_BR.UTF-8):	Ambiente Integrado de Desenvolvimento para o KDE
 Summary(zh_CN.UTF-8):	KDE C/C++集成开发环境
 Name:		ka5-kdevelop
-Version:	21.12.3
+Version:	22.04.0
 Release:	1
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
-# Source0-md5:	bbaea81865442504e73ebb279a0888a4
+# Source0-md5:	ba6b60c1fd7c30882a863d7b7ac31997
 URL:		http://www.kdevelop.org/
 BuildRequires:	Qt5Help-devel >= %{qtver}
 BuildRequires:	Qt5WebEngine-devel >= %{qtver}
@@ -232,8 +232,6 @@ rm -rf $RPM_BUILD_ROOT
 %ghost %{_libdir}/libKDevPlatformShell.so.??
 %attr(755,root,root) %{_libdir}/libKDevPlatformSublime.so.*.*.*
 %ghost %{_libdir}/libKDevPlatformSublime.so.??
-%attr(755,root,root) %{_libdir}/libKDevPlatformTests.so.*.*.*
-%ghost %{_libdir}/libKDevPlatformTests.so.??
 %attr(755,root,root) %{_libdir}/libKDevPlatformUtil.so.*.*.*
 %ghost %{_libdir}/libKDevPlatformUtil.so.??
 %attr(755,root,root) %{_libdir}/libKDevPlatformVcs.so.*.*.*
@@ -267,7 +265,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libKDevPlatformSerialization.so
 %{_libdir}/libKDevPlatformShell.so
 %{_libdir}/libKDevPlatformSublime.so
-%{_libdir}/libKDevPlatformTests.so
 %{_libdir}/libKDevPlatformUtil.so
 %{_libdir}/libKDevPlatformVcs.so
 %dir %{_libdir}/cmake/KDevPlatform
