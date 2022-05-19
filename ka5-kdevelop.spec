@@ -14,7 +14,7 @@ Summary(pt_BR.UTF-8):	Ambiente Integrado de Desenvolvimento para o KDE
 Summary(zh_CN.UTF-8):	KDE C/C++集成开发环境
 Name:		ka5-kdevelop
 Version:	22.04.1
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
@@ -236,11 +236,15 @@ rm -rf $RPM_BUILD_ROOT
 %ghost %{_libdir}/libKDevPlatformUtil.so.??
 %attr(755,root,root) %{_libdir}/libKDevPlatformVcs.so.*.*.*
 %ghost %{_libdir}/libKDevPlatformVcs.so.??
+%dir %{_libdir}/qt5/plugins/grantlee
+%dir %{_libdir}/qt5/plugins/grantlee/5.2
 %attr(755,root,root) %{_libdir}/qt5/plugins/grantlee/*/kdev_filters.so
-
+%dir %{_libdir}/qt5/plugins/kdevplatform
+%dir %{_libdir}/qt5/plugins/kdevplatform/36
 %attr(755,root,root) %{_libdir}/qt5/plugins/kdevplatform/*/kdev*.so
 
 %{_libdir}/qt5/qml/org/kde/kdevplatform/qmldir
+%dir %{_libdir}/qt5/qml/org/kde/kdevplatform
 %attr(755,root,root) %{_libdir}/qt5/qml/org/kde/kdevplatform/libkdevelopdashboarddeclarativeplugin.so
 %{_datadir}/kdevcodegen
 %{_datadir}/kdevcodeutils
