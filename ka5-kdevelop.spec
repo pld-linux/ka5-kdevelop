@@ -1,11 +1,16 @@
 #
 # Conditional build:
 %bcond_with	tests		# build with tests
+%bcond_without	webengine	# build without webengine
 
 %define		kdeappsver	22.04.2
 %define		kframever	5.78.0
 %define		qtver		5.15.0
 %define		kaname		kdevelop
+
+%ifarch x32
+%undefine with_webengine
+%endif
 
 Summary:	KDE Integrated Development Environment
 Summary(de.UTF-8):	KDevelop ist eine grafische Entwicklungsumgebung für KDE
@@ -21,7 +26,7 @@ Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kan
 # Source0-md5:	d9f5dc85b54755860ca29ef454ffc383
 URL:		http://www.kdevelop.org/
 BuildRequires:	Qt5Help-devel >= %{qtver}
-BuildRequires:	Qt5WebEngine-devel >= %{qtver}
+%{?with_webengine:BuildRequires:	Qt5WebEngine-devel >= %{qtver}}
 BuildRequires:	astyle-devel >= 3.1
 BuildRequires:	clang-devel
 BuildRequires:	cmake >= 2.8.9
