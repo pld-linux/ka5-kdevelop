@@ -3,7 +3,7 @@
 %bcond_with	tests		# build with tests
 %bcond_without	webengine	# build without webengine
 
-%define		kdeappsver	22.08.3
+%define		kdeappsver	22.12.0
 %define		kframever	5.94.0
 %define		qtver		5.15.2
 %define		kaname		kdevelop
@@ -18,12 +18,12 @@ Summary(pl.UTF-8):	Zintegrowane środowisko programisty dla KDE
 Summary(pt_BR.UTF-8):	Ambiente Integrado de Desenvolvimento para o KDE
 Summary(zh_CN.UTF-8):	KDE C/C++集成开发环境
 Name:		ka5-kdevelop
-Version:	22.08.3
+Version:	22.12.0
 Release:	1
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
-# Source0-md5:	f63fcf57f9ee5f9a985255b6d6fe1693
+# Source0-md5:	b351c2d2c5cf0ceffc355c32a6c8abac
 URL:		http://www.kdevelop.org/
 BuildRequires:	Qt5Help-devel >= %{qtver}
 %{?with_webengine:BuildRequires:	Qt5WebEngine-devel >= %{qtver}}
@@ -220,32 +220,31 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kdev_format_source
 %attr(755,root,root) %{_bindir}/kdevplatform_shell_environment.sh
 %attr(755,root,root) %{_libdir}/libKDevPlatformDebugger.so.*.*.*
-%ghost %{_libdir}/libKDevPlatformDebugger.so.??
+%ghost %{_libdir}/libKDevPlatformDebugger.so.???
 %attr(755,root,root) %{_libdir}/libKDevPlatformDocumentation.so.*.*.*
-%ghost %{_libdir}/libKDevPlatformDocumentation.so.??
+%ghost %{_libdir}/libKDevPlatformDocumentation.so.???
 %attr(755,root,root) %{_libdir}/libKDevPlatformInterfaces.so.*.*.*
-%ghost %{_libdir}/libKDevPlatformInterfaces.so.??
+%ghost %{_libdir}/libKDevPlatformInterfaces.so.???
 %attr(755,root,root) %{_libdir}/libKDevPlatformLanguage.so.*.*.*
-%ghost %{_libdir}/libKDevPlatformLanguage.so.??
+%ghost %{_libdir}/libKDevPlatformLanguage.so.???
 %attr(755,root,root) %{_libdir}/libKDevPlatformOutputView.so.*.*.*
-%ghost %{_libdir}/libKDevPlatformOutputView.so.??
+%ghost %{_libdir}/libKDevPlatformOutputView.so.???
 %attr(755,root,root) %{_libdir}/libKDevPlatformProject.so.*.*.*
-%ghost %{_libdir}/libKDevPlatformProject.so.??
+%ghost %{_libdir}/libKDevPlatformProject.so.???
 %attr(755,root,root) %{_libdir}/libKDevPlatformSerialization.so.*.*.*
-%ghost %{_libdir}/libKDevPlatformSerialization.so.??
+%ghost %{_libdir}/libKDevPlatformSerialization.so.???
 %attr(755,root,root) %{_libdir}/libKDevPlatformShell.so.*.*.*
-%ghost %{_libdir}/libKDevPlatformShell.so.??
+%ghost %{_libdir}/libKDevPlatformShell.so.???
 %attr(755,root,root) %{_libdir}/libKDevPlatformSublime.so.*.*.*
-%ghost %{_libdir}/libKDevPlatformSublime.so.??
+%ghost %{_libdir}/libKDevPlatformSublime.so.???
 %attr(755,root,root) %{_libdir}/libKDevPlatformUtil.so.*.*.*
-%ghost %{_libdir}/libKDevPlatformUtil.so.??
+%ghost %{_libdir}/libKDevPlatformUtil.so.???
 %attr(755,root,root) %{_libdir}/libKDevPlatformVcs.so.*.*.*
-%ghost %{_libdir}/libKDevPlatformVcs.so.??
+%ghost %{_libdir}/libKDevPlatformVcs.so.???
 %dir %{_libdir}/qt5/plugins/grantlee
 %dir %{_libdir}/qt5/plugins/grantlee/5.2
 %attr(755,root,root) %{_libdir}/qt5/plugins/grantlee/*/kdev_filters.so
 %dir %{_libdir}/qt5/plugins/kdevplatform
-%dir %{_libdir}/qt5/plugins/kdevplatform/37
 %attr(755,root,root) %{_libdir}/qt5/plugins/kdevplatform/*/kdev*.so
 
 %{_libdir}/qt5/qml/org/kde/kdevplatform/qmldir
