@@ -4,7 +4,7 @@
 %bcond_without	webengine	# build without webengine
 
 %define		kdeappsver	22.12.3
-%define		kframever	5.94.0
+%define		kframever	5.103.0
 %define		qtver		5.15.2
 %define		kaname		kdevelop
 
@@ -19,7 +19,7 @@ Summary(pt_BR.UTF-8):	Ambiente Integrado de Desenvolvimento para o KDE
 Summary(zh_CN.UTF-8):	KDE C/C++集成开发环境
 Name:		ka5-kdevelop
 Version:	22.12.3
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
@@ -40,6 +40,7 @@ BuildRequires:	kf5-kdoctools-devel >= %{kframever}
 BuildRequires:	kf5-krunner-devel >= %{kframever}
 BuildRequires:	kf5-plasma-framework-devel >= %{kframever}
 BuildRequires:	kf5-syntax-highlighting-devel >= %{kframever}
+BuildRequires:	kf5-threadweaver-devel >= %{kframever}
 BuildRequires:	kp5-libksysguard-devel
 BuildRequires:	qt5-assistant >= %{qtver}
 
