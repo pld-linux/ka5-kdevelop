@@ -3,7 +3,7 @@
 %bcond_with	tests		# build with tests
 %bcond_without	webengine	# build without webengine
 
-%define		kdeappsver	22.12.3
+%define		kdeappsver	23.04.0
 %define		kframever	5.103.0
 %define		qtver		5.15.2
 %define		kaname		kdevelop
@@ -18,17 +18,18 @@ Summary(pl.UTF-8):	Zintegrowane środowisko programisty dla KDE
 Summary(pt_BR.UTF-8):	Ambiente Integrado de Desenvolvimento para o KDE
 Summary(zh_CN.UTF-8):	KDE C/C++集成开发环境
 Name:		ka5-kdevelop
-Version:	22.12.3
-Release:	4
+Version:	23.04.0
+Release:	1
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
-# Source0-md5:	f19a9d9936703d1fca5adb9c953478b0
+# Source0-md5:	332cfddb7389eb0bf5930b2ce5652b86
 URL:		http://www.kdevelop.org/
 BuildRequires:	Qt5Help-devel >= %{qtver}
 %{?with_webengine:BuildRequires:	Qt5WebEngine-devel >= %{qtver}}
 BuildRequires:	astyle-devel >= 3.1
 BuildRequires:	clang-devel
+BuildRequires:	clang-tools-extra
 BuildRequires:	cmake >= 2.8.9
 BuildRequires:	docbook-dtd45-xml
 BuildRequires:	docbook-style-xsl
@@ -42,6 +43,7 @@ BuildRequires:	kf5-plasma-framework-devel >= %{kframever}
 BuildRequires:	kf5-syntax-highlighting-devel >= %{kframever}
 BuildRequires:	kf5-threadweaver-devel >= %{kframever}
 BuildRequires:	kp5-libksysguard-devel
+BuildRequires:	llvm-mlir-devel
 BuildRequires:	qt5-assistant >= %{qtver}
 
 BuildRequires:	libstdc++-devel >= 3.3
@@ -243,10 +245,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libKDevPlatformVcs.so.*.*.*
 %ghost %{_libdir}/libKDevPlatformVcs.so.???
 %dir %{_libdir}/qt5/plugins/grantlee
-%dir %{_libdir}/qt5/plugins/grantlee/5.2
+%dir %{_libdir}/qt5/plugins/grantlee/5.3
 %attr(755,root,root) %{_libdir}/qt5/plugins/grantlee/*/kdev_filters.so
 %dir %{_libdir}/qt5/plugins/kdevplatform
-%dir %{_libdir}/qt5/plugins/kdevplatform/510
+%dir %{_libdir}/qt5/plugins/kdevplatform/511
 %attr(755,root,root) %{_libdir}/qt5/plugins/kdevplatform/*/kdev*.so
 
 %{_libdir}/qt5/qml/org/kde/kdevplatform/qmldir
