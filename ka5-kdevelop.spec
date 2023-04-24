@@ -35,7 +35,7 @@ BuildRequires:	docbook-dtd45-xml
 BuildRequires:	docbook-style-xsl
 BuildRequires:	gettext-tools
 BuildRequires:	ka5-libkomparediff2-devel
-BuildRequires:	ka5-okteta-devel
+BuildRequires:	ka5-okteta-devel >= 1:0.26.9-3
 BuildRequires:	kf5-kcrash-devel >= %{kframever}
 BuildRequires:	kf5-kdoctools-devel >= %{kframever}
 BuildRequires:	kf5-krunner-devel >= %{kframever}
