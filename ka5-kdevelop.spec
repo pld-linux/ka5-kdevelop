@@ -19,7 +19,7 @@ Summary(pt_BR.UTF-8):	Ambiente Integrado de Desenvolvimento para o KDE
 Summary(zh_CN.UTF-8):	KDE C/C++集成开发环境
 Name:		ka5-kdevelop
 Version:	23.04.2
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
@@ -34,6 +34,7 @@ BuildRequires:	cmake >= 2.8.9
 BuildRequires:	docbook-dtd45-xml
 BuildRequires:	docbook-style-xsl
 BuildRequires:	gettext-tools
+BuildRequires:	ka5-kdevelop-pg-qt
 BuildRequires:	ka5-libkomparediff2-devel
 BuildRequires:	ka5-okteta-devel >= 1:0.26.9-3
 BuildRequires:	kf5-kcrash-devel >= %{kframever}
