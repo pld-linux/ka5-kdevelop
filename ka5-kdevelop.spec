@@ -3,7 +3,7 @@
 %bcond_with	tests		# build with tests
 %bcond_without	webengine	# build without webengine
 
-%define		kdeappsver	23.08.3
+%define		kdeappsver	23.08.4
 %define		kframever	5.103.0
 %define		qtver		5.15.2
 %define		kaname		kdevelop
@@ -18,12 +18,12 @@ Summary(pl.UTF-8):	Zintegrowane środowisko programisty dla KDE
 Summary(pt_BR.UTF-8):	Ambiente Integrado de Desenvolvimento para o KDE
 Summary(zh_CN.UTF-8):	KDE C/C++集成开发环境
 Name:		ka5-kdevelop
-Version:	23.08.3
+Version:	23.08.4
 Release:	1
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
-# Source0-md5:	ba89dcef602571eed04eb310a8c39a46
+# Source0-md5:	31e7bbbcfae229f06afb4db1f342e54c
 URL:		http://www.kdevelop.org/
 BuildRequires:	Qt5Help-devel >= %{qtver}
 %{?with_webengine:BuildRequires:	Qt5WebEngine-devel >= %{qtver}}
@@ -53,6 +53,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.600
 BuildRequires:	zlib-devel >= 1.2.0
 BuildConflicts:	star
+Requires:	%{name}-data = %{version}-%{release}
 Requires:	libstdc++-gdb
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	shared-mime-info
@@ -90,31 +91,45 @@ KDevelop ist eine grafische Entwicklungsumgebung für KDE.
 Das KDevelop-Projekt wurde 1998 begonnen, um eine einfach zu
 bedienende grafische (integrierte) Entwicklungsumgebung für C++ und C
 auf Unix-basierten Betriebssystemen bereitzustellen. Seit damals ist
-die KDevelop-IDE öffentlich unter der GPL erhältlich und unterstützt
-u. a. Qt-, KDE-, GNOME-, C++- und C-Projekte.
+die KDevelop-IDE öffentlich unter der GPL erhältlich und
+unterstützt u. a. Qt-, KDE-, GNOME-, C++- und C-Projekte.
 
 %description -l pl.UTF-8
 KDevelop to zintegrowane środowisko programistyczne dla KDE, dające
-wiele możliwości przydatnych programistom oraz zunifikowany interfejs
-do programów typu gdb, kompilator C/C++ oraz make.
+wiele możliwości przydatnych programistom oraz zunifikowany
+interfejs do programów typu gdb, kompilator C/C++ oraz make.
 
 KDevelop obsługuje lub zawiera: wszystkie narzędzia programistyczne
 potrzebne do programowania w C++ jak kompilator, linker, automake,
 autoconf; KAppWizard, generujący kompletne, gotowe do uruchomienia,
-proste aplikacje; Classgenerator do tworzenia nowych klas i włączania
-ich do projektu; zarządzanie plikami źródłowymi, nagłówkowymi,
-dokumentacją itp.; tworzenie podręczników użytkownika pisanych w SGML
-i automatyczne generowanie wyjścia HTML pasującego do KDE;
-automatyczne tworzenie dokumentacji API w HTML do klas projektu z
-odniesieniami do używanych bibliotek; wsparcie dla
+proste aplikacje; Classgenerator do tworzenia nowych klas i
+włączania ich do projektu; zarządzanie plikami źródłowymi,
+nagłówkowymi, dokumentacją itp.; tworzenie podręczników
+użytkownika pisanych w SGML i automatyczne generowanie wyjścia HTML
+pasującego do KDE; automatyczne tworzenie dokumentacji API w HTML do
+klas projektu z odniesieniami do używanych bibliotek; wsparcie dla
 internacjonalizacji, pozwalające tłumaczom łatwo dodawać pliki z
 tłumaczeniami do projektu.
 
 KDevelop ma także tworzenie interfejsów użytkownika przy użyciu
-edytora dialogów WYSIWYG; odpluskwianie aplikacji poprzez integrację z
-KDbg; edycję ikon przy pomocy KIconEdit; dołączanie innych programów
-potrzebnych do programowania przez dodanie ich do menu Tools według
-własnych potrzeb.
+edytora dialogów WYSIWYG; odpluskwianie aplikacji poprzez integrację
+z KDbg; edycję ikon przy pomocy KIconEdit; dołączanie innych
+programów potrzebnych do programowania przez dodanie ich do menu
+Tools według własnych potrzeb.
+
+%package data
+Summary:	Data files for %{kaname}
+Summary(pl.UTF-8):	Dane dla %{kaname}
+Group:		X11/Development/Tools
+Requires:	filesystem >= 4.1-18
+Obsoletes:	bash-completion-kdevelop <= 23.08.4-1
+BuildArch:	noarch
+
+%description data
+Data files for %{kaname}.
+
+%description data -l pl.UTF-8
+Dane dla %{kaname}.
 
 %package devel
 Summary:	kdevelop - header files and development documentation
@@ -129,20 +144,6 @@ kdevelop.
 %description devel -l pl.UTF-8
 Pakiet ten zawiera pliki nagłówkowe i dokumentację potrzebną przy
 pisaniu własnych programów wykorzystujących kdevelop.
-
-%package -n bash-completion-kdevelop
-Summary:	Bash completion for KDevelop commands
-Summary(pl.UTF-8):	Bashowe uzupełnianie parametrów dla poleceń KDevelop
-Group:		Applications/Shells
-Requires:	%{name} = %{version}-%{release}
-Requires:	bash-completion >= 2.0
-%{?noarchpackage}
-
-%description -n bash-completion-kdevelop
-Bash completion for KDevelop commands.
-
-%description -n bash-completion-kdevelop -l pl.UTF-8
-Bashowe uzupełnianie parametrów dla poleceń KDevelop.
 
 %prep
 %setup -q -n %{kaname}-%{version}
@@ -195,27 +196,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/qt5/qml/org/kde/plasma/private/kdevelopsessions
 %attr(755,root,root) %{_libdir}/qt5/qml/org/kde/plasma/private/kdevelopsessions/libkdevelopsessionsplugin.so
 %{_libdir}/qt5/qml/org/kde/plasma/private/kdevelopsessions/qmldir
-%dir %{_datadir}/kdevplatform
-%dir %{_datadir}/kdevplatform/shellutils
-%{_datadir}/kdevplatform/shellutils/.zshrc
-%{_datadir}/kdevappwizard
-%{_datadir}/kdevclangsupport
-%{_datadir}/kdevelop
-%{_datadir}/kdevfiletemplates
-%{_datadir}/kdevgdb
-%{_datadir}/kdevlldb
-%{_datadir}/kdevmanpage
-%{_datadir}/kdevqmljssupport
-%{_datadir}/knotifications5/*
-%{_datadir}/knsrcfiles/kdev*.knsrc
-%{_datadir}/metainfo/*
-%{_datadir}/mime/packages/*
-%{_datadir}/kservices5/*
-%{_datadir}/plasma/plasmoids/kdevelopsessions
-%{_desktopdir}/org.kde.kdevelop.desktop
-%{_desktopdir}/org.kde.kdevelop_*.desktop
-%{_iconsdir}/*/*x*/*/*.png
-%{_datadir}/qlogging-categories5/kdev*.categories
 
 #kdevplatform
 %attr(755,root,root) %{_bindir}/kdev_dbus_socket_transformer
@@ -253,12 +233,36 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/qt5/qml/org/kde/kdevplatform/qmldir
 %dir %{_libdir}/qt5/qml/org/kde/kdevplatform
 %attr(755,root,root) %{_libdir}/qt5/qml/org/kde/kdevplatform/libkdevelopdashboarddeclarativeplugin.so
+
+%files data
+%defattr(644,root,root,755)
+%{bash_compdir}/kdevelop
+%dir %{_datadir}/kdevplatform
+%dir %{_datadir}/kdevplatform/shellutils
+%{_datadir}/kdevplatform/shellutils/.zshrc
+%{_datadir}/kdevappwizard
+%{_datadir}/kdevclangsupport
+%{_datadir}/kdevelop
+%{_datadir}/kdevfiletemplates
+%{_datadir}/kdevgdb
+%{_datadir}/kdevlldb
+%{_datadir}/kdevmanpage
+%{_datadir}/kdevqmljssupport
+%{_datadir}/knotifications5/*
+%{_datadir}/knsrcfiles/kdev*.knsrc
+%{_datadir}/metainfo/*
+%{_datadir}/mime/packages/*
+%{_datadir}/kservices5/*
+%{_datadir}/plasma/plasmoids/kdevelopsessions
+%{_desktopdir}/org.kde.kdevelop.desktop
+%{_desktopdir}/org.kde.kdevelop_*.desktop
+%{_iconsdir}/*/*x*/*/*.png
+%{_datadir}/qlogging-categories5/kdev*.categories
 %{_datadir}/kdevcodegen
 %{_datadir}/kdevcodeutils
 %{_datadir}/kservicetypes5/kdevelopplugin.desktop
 %{_iconsdir}/hicolor/*/actions/*.svg
 %{_iconsdir}/hicolor/*/apps/*.svg
-
 
 %files devel
 %defattr(644,root,root,755)
@@ -284,7 +288,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cmake/KDevPlatform/KDevPlatformMacros.cmake
 %{_libdir}/cmake/KDevPlatform/KDevPlatformTargets.cmake
 %{_libdir}/cmake/KDevPlatform/KDevPlatformTargets-pld.cmake
-
-%files -n bash-completion-kdevelop
-%defattr(644,root,root,755)
-%{bash_compdir}/kdevelop
