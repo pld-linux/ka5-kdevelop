@@ -3,7 +3,7 @@
 %bcond_with	tests		# build with tests
 %bcond_without	webengine	# build without webengine
 
-%define		kdeappsver	23.08.4
+%define		kdeappsver	23.08.5
 %define		kframever	5.103.0
 %define		qtver		5.15.2
 %define		kaname		kdevelop
@@ -18,12 +18,12 @@ Summary(pl.UTF-8):	Zintegrowane środowisko programisty dla KDE
 Summary(pt_BR.UTF-8):	Ambiente Integrado de Desenvolvimento para o KDE
 Summary(zh_CN.UTF-8):	KDE C/C++集成开发环境
 Name:		ka5-kdevelop
-Version:	23.08.4
+Version:	23.08.5
 Release:	1
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
-# Source0-md5:	31e7bbbcfae229f06afb4db1f342e54c
+# Source0-md5:	e643b040806cb4547f104950bde6b5f2
 URL:		http://www.kdevelop.org/
 BuildRequires:	Qt5Help-devel >= %{qtver}
 %{?with_webengine:BuildRequires:	Qt5WebEngine-devel >= %{qtver}}
