@@ -25,32 +25,63 @@ Group:		X11/Development/Tools
 Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
 # Source0-md5:	e643b040806cb4547f104950bde6b5f2
 URL:		http://www.kdevelop.org/
+BuildRequires:	Qt5Concurrent-devel >= %{qtver}
+BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	Qt5Help-devel >= %{qtver}
+BuildRequires:	Qt5Quick-devel >= %{qtver}
+BuildRequires:	Qt5Widgets-devel >= %{qtver}
 %{?with_webengine:BuildRequires:	Qt5WebEngine-devel >= %{qtver}}
 BuildRequires:	astyle-devel >= 3.1
+BuildRequires:	boost-devel >= 1.35.0
 BuildRequires:	clang-devel
-BuildRequires:	clang-tools-extra
 BuildRequires:	cmake >= 3.20
 BuildRequires:	docbook-dtd45-xml
 BuildRequires:	docbook-style-xsl
 BuildRequires:	gettext-tools
+BuildRequires:	grantlee-qt5-devel
 BuildRequires:	ka5-kdevelop-pg-qt
-BuildRequires:	ka5-libkomparediff2-devel
+BuildRequires:	ka5-libkomparediff2-devel >= 5.4.0
 BuildRequires:	ka5-okteta-devel >= 1:0.26.9-3
+BuildRequires:	kf5-extra-cmake-modules
+BuildRequires:	kf5-karchive-devel >= %{kframever}
+BuildRequires:	kf5-kcmutils-devel >= %{kframever}
+BuildRequires:	kf5-kconfig-devel >= %{kframever}
 BuildRequires:	kf5-kcrash-devel >= %{kframever}
+BuildRequires:	kf5-kdeclarative-devel >= %{kframever}
 BuildRequires:	kf5-kdoctools-devel >= %{kframever}
+BuildRequires:	kf5-kguiaddons-devel >= %{kframever}
+BuildRequires:	kf5-ki18n-devel >= %{kframever}
+BuildRequires:	kf5-kiconthemes-devel >= %{kframever}
+BuildRequires:	kf5-kio-devel >= %{kframever}
+BuildRequires:	kf5-kitemmodels-devel >= %{kframever}
+BuildRequires:	kf5-kjobwidgets-devel >= %{kframever}
+BuildRequires:	kf5-knewstuff-devel >= %{kframever}
+BuildRequires:	kf5-knotifications-devel >= %{kframever}
+BuildRequires:	kf5-knotifyconfig-devel >= %{kframever}
+BuildRequires:	kf5-kparts-devel >= %{kframever}
 BuildRequires:	kf5-krunner-devel >= %{kframever}
+BuildRequires:	kf5-kservice-devel >= %{kframever}
+BuildRequires:	kf5-ktexteditor-devel >= %{kframever}
+BuildRequires:	kf5-ktexteditor-devel >= %{kframever}
+BuildRequires:	kf5-kwindowsystem-devel >= %{kframever}
+BuildRequires:	kf5-kxmlgui-devel >= %{kframever}
 BuildRequires:	kf5-plasma-framework-devel >= %{kframever}
+BuildRequires:	kf5-purpose-devel >= %{kframever}
 BuildRequires:	kf5-syntax-highlighting-devel >= %{kframever}
 BuildRequires:	kf5-threadweaver-devel >= %{kframever}
 BuildRequires:	kp5-libksysguard-devel
-BuildRequires:	llvm-mlir-devel
-BuildRequires:	qt5-assistant >= %{qtver}
-
 BuildRequires:	libstdc++-devel >= 3.3
+BuildRequires:	llvm-mlir-devel
+BuildRequires:	meson >= 0.51
 BuildRequires:	ninja
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(macros) >= 1.600
+BuildRequires:	qt5-assistant >= %{qtver}
+BuildRequires:	rpm-build >= 4.6
+BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	shared-mime-info >= 1.9
+BuildRequires:	subversion-devel
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 BuildRequires:	zlib-devel >= 1.2.0
 BuildConflicts:	star
 Requires:	%{name}-data = %{version}-%{release}
@@ -155,7 +186,9 @@ pisaniu własnych programów wykorzystujących kdevelop.
 	%{!?with_tests:-DBUILD_TESTING=OFF} \
 	-DHTML_INSTALL_DIR=%{_kdedocdir} \
 	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-	-DFORCE_BASH_COMPLETION_INSTALLATION=ON
+	-DFORCE_BASH_COMPLETION_INSTALLATION=ON \
+	-DCppcheck_EXECUTABLE:PATH=/usr/bin/cppcheck \
+	-DClangTidy_EXECUTABLE:PATH=/usr/bin/clang-tidy
 %ninja_build -C build
 
 %if %{with tests}
